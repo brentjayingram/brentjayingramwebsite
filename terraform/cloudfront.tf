@@ -99,8 +99,7 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = data.aws_acm_certificate.my_domain.arn
-    ssl_support_method  = "sni-only"
+    cloudfront_default_certificate = true
   }
 }
 
@@ -110,14 +109,14 @@ data "aws_route53_zone" "my_domain" {
 }
 
 resource "aws_route53_record" "cloudfront" {
-  for_each = aws_cloudfront_distribution.s3_distribution.aliases
+  for_each = toset(aws_cloudfront_distribution.website.aliases)
   zone_id  = data.aws_route53_zone.my_domain.zone_id
   name     = each.value
   type     = "A"
 
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.website.domain_name
+    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
     evaluate_target_health = false
   }
 }
