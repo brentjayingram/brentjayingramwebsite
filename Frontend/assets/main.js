@@ -2,13 +2,6 @@
 
 // --- Existing blogPosts manifest ---
 const blogPosts = [
-  {
-    title: "How I Broke, Then Unbroke, Our Cloud",
-    date: "2025-10-30",
-    slug: "post-1.md",
-    excerpt:
-      "An incident took down critical services. Here's how we rebuilt the stack with Terraform, guardrails, and slightly less panic than you'd expect."
-  },
 
   {
     title: "How I used terraform to create a swa blog with Hugo",
