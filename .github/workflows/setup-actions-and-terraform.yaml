@@ -27,6 +27,11 @@ jobs:
         run: terraform plan -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
         
+      - name: Import existing bucket
+        run: terraform import aws_s3_bucket.website ${{ secrets.BUCKET_NAME }}
+        working-directory: terraform
+        continue-on-error: true
+
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
