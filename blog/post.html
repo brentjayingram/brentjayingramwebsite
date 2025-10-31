@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="doc-title">Blog Post — Brent Ingram</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html">
+        <span>Brent Ingram</span>
+        <span class="brand-role">Cloud Engineer</span>
+      </a>
+      <div class="menu">
+        <a href="../about.html">About Me</a>
+        <a href="../resume.html">Resume</a>
+        <a class="active" href="../blog-index.html">Blog</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="panel">
+      <div class="small-dim" style="font-size:.8rem;" id="post-date"></div>
+      <h1 id="post-title">Loading…</h1>
+
+      <div id="post-body" class="small-dim" style="font-size:1rem;">
+        <!-- Markdown-rendered HTML goes here -->
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Brent Ingram.</div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

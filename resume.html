@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Brent Ingram</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span>Brent Ingram</span>
+        <span class="brand-role">Cloud Engineer</span>
+      </a>
+      <div class="menu">
+        <a href="about.html">About Me</a>
+        <a class="active" href="resume.html">Resume</a>
+        <a href="blog-index.html">Blog</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="panel">
+
+      <div class="panel-header-row resume-header">
+        <div>
+          <h1 style="margin-bottom:.25rem;">Brent Ingram</h1>
+          <div class="contact-line">
+            (951) 801-1628 •
+            <a href="mailto:brent@brentjayingram.com">brent@brentjayingram.com</a> •
+            Atlanta, GA •
+            <a href="https://www.linkedin.com/in/brentjayingram/">linkedin.com/in/brentjayingram</a>
+          </div>
+          <div class="small-dim" style="margin-top:.5rem;">
+            Cloud & Automation Engineer with deep AWS / Azure experience. I build and
+            harden scalable infrastructure using Terraform, automation, and guardrails.
+            Strong focus on resilience, recovery, and cost-aware architecture.
+          </div>
+        </div>
+
+        <div class="row-flex" style="align-items:flex-start;">
+          <a class="download-btn" href="assets/brent-ingram-resume.pdf" download>
+            Download PDF
+          </a>
+        </div>
+      </div>
+
+      <section class="resume-section">
+        <h2>Experience</h2>
+
+        <div class="job-block">
+          <div class="job-top-row">
+            <div>Cloud and Automation Engineer – Brunswick Corp (NYSE:BC)</div>
+            <div>July 2022 – Present</div>
+          </div>
+          <div class="job-meta">
+            Remote • Multi-cloud environment across AWS / Azure / OCI / GCP
+          </div>
+          <ul class="bullets">
+            <li>
+              Led the divestment of an internal developer/app stack: handled Route 53 domain transfer,
+              AMI delivery, MS SQL database copies, and WAF configuration to give the spun-off team a clean,
+              secure landing zone. Directed 4 engineers.
+            </li>
+            <li>
+              Rebuilt AWS infrastructure after a cybersecurity incident. Designed cross-account,
+              immutable backup vaults (“break glass” pattern) using AWS RAM and automated backup policies,
+              preventing mass deletions and restoring business continuity.
+            </li>
+            <li>
+              Implemented EventBridge → ServiceNow dashboarding for global backup visibility, so leadership
+              can see backup health across the entire company.
+            </li>
+            <li>
+              Deployed 300+ servers and cloud resources across Azure, AWS, and OCI using Terraform and Puppet
+              in Azure DevOps CI/CD pipelines, improving stability for external, revenue-impacting workloads.
+            </li>
+            <li>
+              Built a custom Python ingestion pipeline from New Relic’s GraphiQL API into Power BI,
+              giving observability and leadership clearer insight into cross-cloud health and trends.
+            </li>
+          </ul>
+        </div>
+
+        <div class="job-block">
+          <div class="job-top-row">
+            <div>IT Support and Azure Engineer – Velonex MSP, Los Angeles</div>
+            <div>April 2016 – July 2022</div>
+          </div>
+          <div class="job-meta">
+            Worked with publicly traded clients using ConnectWise RMM tooling
+          </div>
+          <ul class="bullets">
+            <li>
+              Managed Cisco Meraki and FortiGate firewalls for NYSE:KW, including planning,
+              configuration, and firmware upgrades, reducing security incidents and improving uptime.
+            </li>
+            <li>
+              Provisioned and secured Azure VMs and services (Azure AD, Intune, Azure Security Center),
+              applying best practices for third-party consultant access.
+            </li>
+            <li>
+              Migrated an on-prem file server to Azure file shares for a real estate investment firm,
+              cutting infra cost by ~30% and enabling secure remote access.
+            </li>
+            <li>
+              Built SharePoint Online solutions to replace spreadsheet-based grant tracking for
+              philanthropic orgs (EIF, Kevin Love Fund, Stand Up 2 Cancer, etc.), improving collaboration
+              and reporting.
+            </li>
+          </ul>
+        </div>
+
+        <div class="job-block">
+          <div class="job-top-row">
+            <div>System Administrator / Owner – BJI Tech, Riverside, CA</div>
+            <div>January 2015 – April 2016</div>
+          </div>
+          <div class="job-meta">
+            Small LLC providing Windows Server + network buildouts
+          </div>
+          <ul class="bullets">
+            <li>
+              Built and maintained Windows Server 2012 R2 environments, including IIS SSL certificate
+              management and multi-VM federation setups, improving uptime and security posture.
+            </li>
+            <li>
+              Managed hybrid Exchange 2013 / Office 365 for clients, cutting unused licenses and saving
+              ~$4,000/yr.
+            </li>
+            <li>
+              Diagnosed a domain-wide login failure by tracing the root cause to clock drift across
+              virtualized domain controllers. Corrected NTP hierarchy and restored authentication.
+            </li>
+          </ul>
+        </div>
+
+        <div class="job-block">
+          <div class="job-top-row">
+            <div>Jr System Administrator – Trinet Internet Solutions, Irvine, CA</div>
+            <div>January 2014 – January 2015</div>
+          </div>
+          <div class="job-meta">
+            Digital marketing / web development agency
+          </div>
+          <ul class="bullets">
+            <li>
+              Supported Linux hosting environments, Cisco firewalls, and VPN access for remote staff.
+            </li>
+            <li>
+              Deployed and troubleshot workstations, mail clients, and productivity tooling for the
+              entire company.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2>Education & Certifications</h2>
+        <ul class="bullets">
+          <li>AWS Solutions Architect Associate — in progress</li>
+          <li>JavaScript Algorithms and Data Structures — freeCodeCamp (2021)</li>
+          <li>Responsive Web Design — freeCodeCamp (2019)</li>
+          <li>CompTIA A+ (2011)</li>
+          <li>UC Riverside, Biological Sciences (Honors Program, GPA &gt; 3.7)</li>
+        </ul>
+      </section>
+
+      <section class="resume-section">
+        <h2>Skills</h2>
+        <ul class="bullets">
+          <li>Terraform, Packer, Puppet, Azure DevOps pipelines</li>
+          <li>AWS / Azure / OCI / GCP infrastructure design</li>
+          <li>Resilience & recovery patterns, backup strategy, DR</li>
+          <li>Networking: Azure networking, VPC design, Cisco Meraki, FortiGate</li>
+          <li>Automation, observability, Power BI dashboarding</li>
+          <li>Windows / VMware management, Docker basics</li>
+        </ul>
+      </section>
+
+      <section class="resume-section">
+        <h2>Interests</h2>
+        <ul class="bullets">
+          <li>Podcasting (theitnewbies.com)</li>
+          <li>Distance running (marathons, including an ultramarathon in South Africa)</li>
+          <li>Dad jokes and mild chaos engineering in home labs</li>
+        </ul>
+      </section>
+
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Brent Ingram.</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

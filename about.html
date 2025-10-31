@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me — Brent Ingram</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span>Brent Ingram</span>
+        <span class="brand-role">Cloud Engineer</span>
+      </a>
+      <div class="menu">
+        <a class="active" href="about.html">About Me</a>
+        <a href="resume.html">Resume</a>
+        <a href="blog-index.html">Blog</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <img src="assets/Profile Picture Fall Small.jpg" alt="Brent Ingram" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto;">
+      <h1 style="text-align: center;">About Me</h1>
+      <p class="small-dim" style="font-size:1rem;">
+        I’m a Cloud & Automation Engineer. I design, harden, and automate infrastructure in AWS and Azure for
+        workloads that companies actually run revenue on.
+      </p>
+
+      <p class="small-dim" style="font-size:1rem;">
+        Day to day, that means Terraform, resilience patterns, incident recovery, and making sure backups actually
+        restore. I like infrastructure that can take a punch.
+      </p>
+
+      <p class="small-dim" style="font-size:1rem;">
+        I’ve led multi-cloud rebuilds after security incidents, built cross-account backup vaults that can’t be mass-deleted,
+        migrated legacy workloads, and stood up dashboards that give leadership the truth instead of “everything's fine 🐶☕🔥”.
+      </p>
+
+      <p class="small-dim" style="font-size:1rem;">
+        I’m based in the Atlanta area, but originally from California. 
+      </p>
+      <p class="small-dim" style="font-size:1rem;">
+        Outside work: I'm a marathon runner, mentor high school students, wood worker and all around tinkerer.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Brent Ingram.</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

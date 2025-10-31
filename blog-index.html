@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Brent Ingram</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span>Brent Ingram</span>
+        <span class="brand-role">Cloud Engineer</span>
+      </a>
+      <div class="menu">
+        <a href="about.html">About Me</a>
+        <a href="resume.html">Resume</a>
+        <a class="active" href="blog-index.html">Blog</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <div class="panel-header-row">
+        <h1 style="margin:0;">Blog</h1>
+        <div class="small-dim" style="font-size:.9rem; max-width:480px;">
+          Notes, fixes, rants, and experiments from the lab / trench / blast radius.
+        </div>
+      </div>
+
+      <div id="blog-list" class="blog-list" style="margin-top:1.5rem;">
+        <!-- JS will inject blog cards here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Brent Ingram.</div>
+  </footer>
+
+  <script src="assets/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

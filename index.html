@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brent Ingram — Cloud Engineer</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span>Brent Ingram</span>
+        <span class="brand-role">Cloud Engineer</span>
+      </a>
+      <div class="menu">
+        <a href="about.html">About Me</a>
+        <a href="resume.html">Resume</a>
+        <a href="blog-index.html">Blog</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <h1 style="font-size:1.8rem; font-weight:600; margin-bottom:.75rem;">
+        I build reliable cloud infrastructure.
+      </h1>
+
+      <div class="small-dim" style="font-size:1rem;">
+        Cloud & Automation Engineer focused on AWS, Azure, Terraform, resilience,
+        and “you should be asleep, why is prod paging us” incident recovery.
+      </div>
+
+      <div class="row-flex" style="margin-top:1.5rem;">
+        <div class="small-dim">
+          Atlanta, GA • Remote friendly
+        </div>
+        <div class="small-dim">
+          <a href="mailto:brent@brentjayingram.com" style="color:var(--text-primary); text-decoration:none;">
+            brent@brentjayingram.com
+          </a>
+        </div>
+        <div class="small-dim">
+          <a href="https://www.linkedin.com/in/brentjayingram/" style="color:var(--accent); text-decoration:none;">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header-row">
+        <h2 style="font-size:1rem; margin:0;">Recent writing</h2>
+        <a class="download-btn" href="blog-index.html">View all posts →</a>
+      </div>
+
+      <div id="blog-list" class="blog-list" style="margin-top:1rem;"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Brent Ingram. Built with HTML, CSS, and unreasonable optimism.</div>
+  </footer>
+
+  <script src="assets/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
