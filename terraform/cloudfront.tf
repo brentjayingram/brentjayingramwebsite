@@ -99,7 +99,7 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate_validation.my_domain.certificate_arn
+    acm_certificate_arn = "arn:aws:acm:us-east-1:520919430166:certificate/aa49bef5-814e-4d23-8821-c1eb95fa2e65"
     ssl_support_method  = "sni-only"
   }
 }
@@ -109,40 +109,7 @@ resource "aws_route53_zone" "my_domain" {
   name = local.my_domain
 }
 
-# Create ACM certificate
-resource "aws_acm_certificate" "my_domain" {
-  domain_name               = local.my_domain
-  subject_alternative_names = ["www.${local.my_domain}"]
-  validation_method         = "DNS"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-# Create Route53 records for certificate validation
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.my_domain.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 60
-  type            = each.value.type
-  zone_id         = aws_route53_zone.my_domain.zone_id
-}
-
-# Validate ACM certificate
-resource "aws_acm_certificate_validation" "my_domain" {
-  certificate_arn         = aws_acm_certificate.my_domain.arn
-  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
-}
 
 # Create Route53 records for the CloudFront distribution aliases
 resource "aws_route53_record" "cloudfront" {
