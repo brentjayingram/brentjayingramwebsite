@@ -267,3 +267,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loadBlogList();
   loadSinglePost();
 });
+// Track visitor on page load
+fetch('https://k97k1rma83.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
+    method: 'POST'
+}).catch(() => {}); // Silent fail
+
