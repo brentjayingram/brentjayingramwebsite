@@ -99,7 +99,7 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:520919430166:certificate/aa49bef5-814e-4d23-8821-c1eb95fa2e65"
+    acm_certificate_arn = data.aws_acm_certificate.my_domain.arn
     ssl_support_method  = "sni-only"
   }
 }
@@ -107,6 +107,12 @@ resource "aws_cloudfront_distribution" "website" {
 # Create Route53 hosted zone
 resource "aws_route53_zone" "my_domain" {
   name = local.my_domain
+}
+
+# Reference existing ACM certificate
+data "aws_acm_certificate" "my_domain" {
+  domain   = local.my_domain
+  statuses = ["ISSUED"]
 }
 
 
