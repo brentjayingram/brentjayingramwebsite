@@ -276,6 +276,7 @@ fetch('https://k97k1rma83.execute-api.us-east-1.amazonaws.com/dev/track-visitor'
 fetch('https://k97k1rma83.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
   .then(res => res.json())
   .then(data => {
-    document.getElementById('visitor-count').textContent = `• ${data} visitors`;
+    console.log('API Response:', data); // This will show you the structure
+    document.getElementById('visitor-count').textContent = `• ${data.count} visitors`; // Update this line
   })
   .catch(() => {});
