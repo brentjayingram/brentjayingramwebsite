@@ -7,7 +7,7 @@ output "bucket_name" {
 }
 
 output "api_gateway_url" {
-  value = "${aws_api_gateway_rest_api.visitor_api.execution_arn}/dev/track-visitor"
+  value = "https://${aws_api_gateway_rest_api.visitor_api.id}.execute-api.us-east-1.amazonaws.com/dev/track-visitor"
   description = "API Gateway URL for visitor tracking"
 }
 
