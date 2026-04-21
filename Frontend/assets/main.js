@@ -268,12 +268,12 @@ document.addEventListener("DOMContentLoaded", () => {
   loadSinglePost();
 });
 // Track visitor on page load
-fetch('https://k97k1rma83.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
+fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
     method: 'POST'
 }).catch(() => {}); // Silent fail
 
 // Fetch and display visitor count
-fetch('https://k97k1rma83.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
+fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
   .then(res => res.json())
   .then(data => {
     console.log('API Response:', data); // This will show you the structure
