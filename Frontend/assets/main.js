@@ -2,7 +2,24 @@
 
 // --- Existing blogPosts manifest ---
 const blogPosts = [
-
+  {
+    title: "Implementing DNS Failover with AWS Load Balancers and S3 Maintenance Pages",
+    date: "2025-11-10",
+    slug: "aws-failover-blog.md",
+    excerpt: "A practical guide to implementing DNS-level failover using Route 53, ALB, and S3 static websites to ensure users never hit a broken application."
+  },
+  {
+    title: "How to Send AWS Backup Events to ServiceNow (Using EventBridge, SNS, and CloudWatch)",
+    date: "2024-04-20",
+    slug: "aws-backup-servicenow-blog.md",
+    excerpt: "Build operational visibility by pushing AWS backup events into ServiceNow using native AWS services for centralized alerting and incident management."
+  },
+  {
+    title: "Designing a Scalable AWS Backup Strategy with Cross-Account Immutability",
+    date: "2023-11-15",
+    slug: "aws-backup-strategy-blog.md",
+    excerpt: "A comprehensive approach to building resilient, cross-account backup architecture with immutable storage and Terraform automation."
+  },
   {
     title: "How I used terraform to create a swa blog with Hugo",
     date: "2023-01-03",
