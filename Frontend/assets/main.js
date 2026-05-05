@@ -582,6 +582,17 @@ function initAIChat() {
     messages.scrollTop = messages.scrollHeight;
   }
   
+  // Prevent wheel events from scrolling the background page
+  messages.addEventListener('wheel', (e) => {
+    const atTop = messages.scrollTop === 0 && e.deltaY < 0;
+    const atBottom = messages.scrollTop + messages.clientHeight >= messages.scrollHeight && e.deltaY > 0;
+    if (!atTop && !atBottom) {
+      e.stopPropagation();
+    }
+    e.preventDefault();
+    messages.scrollTop += e.deltaY;
+  }, { passive: false });
+
   // Event listeners for sending
   sendBtn.addEventListener('click', sendMessage);
   input.addEventListener('keypress', (e) => {
