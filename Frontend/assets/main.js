@@ -408,6 +408,7 @@ function initAIChat() {
     
     .chat-messages {
       flex: 1;
+      min-height: 0;
       padding: 15px;
       overflow-y: auto;
       display: flex;
