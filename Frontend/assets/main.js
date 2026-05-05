@@ -3,6 +3,12 @@
 // --- Existing blogPosts manifest ---
 const blogPosts = [
   {
+    title: "Building My Cloud Resume Challenge: A Complete AWS Infrastructure Journey",
+    date: "2026-05-04",
+    slug: "cloudresumechallenge.md",
+    excerpt: "The complete story of building my cloud resume using AWS services and Terraform - from static website to full serverless architecture with CI/CD."
+  },
+  {
     title: "Implementing DNS Failover with AWS Load Balancers and S3 Maintenance Pages",
     date: "2025-11-10",
     slug: "aws-failover-blog.md",
