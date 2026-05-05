@@ -39,6 +39,69 @@ My final architecture includes:
 - **Infrastructure**: Terraform for everything
 - **CI/CD**: GitHub Actions for automated deployments
 
+### Architecture Diagram
+
+```mermaid
+flowchart TD
+    Dev([Developer]) -->|git push main| REPO
+
+    subgraph REPO[GitHub Repository]
+        direction LR
+        FE[Frontend/\nHTML · CSS · JS · MD]
+        TF[terraform/\nmain · cloudfront · dynamodb · lambda]
+        WF[.github/workflows/\nsetup-actions-and-terraform.yaml]
+    end
+
+    REPO -->|triggers on push to main| ACTIONS
+
+    SECRETS[GitHub Secrets\nAWS_ACCESS_KEY_ID\nAWS_SECRET_ACCESS_KEY\nTF_STATE_BUCKET · BUCKET_NAME] --> S1
+
+    subgraph ACTIONS[GitHub Actions CI/CD]
+        direction TB
+        S1[1. Configure AWS Credentials]
+        S2[2. Terraform Init]
+        S3[3. Terraform Plan]
+        S4[4. Terraform Apply --auto-approve]
+        S5[5. aws s3 sync Frontend/ --delete]
+        S1 --> S2 --> S3 --> S4 --> S5
+    end
+
+    subgraph AWS[AWS]
+        TF_STATE[(S3 Terraform State\nbrentjayingram-website-terraform-state)]
+
+        subgraph FRONTEND[Frontend Layer]
+            R53[Route 53\nA Records\nbrentjayingram.com + www]
+            ACM[ACM Certificate\nSSL/TLS]
+            CDN[CloudFront CDN\nPriceClass_200\nGeo-restricted: US/CA/GB/DE]
+            BUCKET[(S3 Static Website\nindex.html · blog/*.md · assets/)]
+            R53 --> CDN
+            ACM --> CDN
+            CDN --> BUCKET
+        end
+
+        subgraph BACKEND[Backend Layer]
+            APIGW[API Gateway\nvisitor-tracking-api\nGET · POST · OPTIONS /track-visitor]
+            FN[Lambda: visitorcount]
+            DB[(DynamoDB\nwebsite-visitors\nPAY_PER_REQUEST)]
+            IAM[IAM Role + DynamoDB Policy]
+            APIGW --> FN
+            FN --> DB
+            IAM -.->|grants permissions| FN
+        end
+    end
+
+    S2 <-->|state read / write| TF_STATE
+    S4 -->|provisions / updates| FRONTEND
+    S4 -->|provisions / updates| BACKEND
+    S5 -->|uploads static files| BUCKET
+
+    USER([User Browser]) -->|DNS lookup| R53
+    CDN -->|serves static content| USER
+    USER -->|POST: track visit| APIGW
+    USER -->|GET: visitor count| APIGW
+    APIGW -->|JSON response| USER
+```
+
 ---
 
 ## Step 1: The Static Website Foundation
