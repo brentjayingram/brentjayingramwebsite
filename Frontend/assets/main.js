@@ -154,6 +154,8 @@ function renderMarkdown(mdText) {
 
   let html = "";
   let inCodeBlock = false;
+  let inMermaidBlock = false;
+  let mermaidBuffer = [];
   let listBuffer = [];
 
   function flushList() {
@@ -182,14 +184,29 @@ function renderMarkdown(mdText) {
 
     // Code fence ``` toggles code block mode
     if (line.trim().startsWith("```")) {
-      if (!inCodeBlock) {
+      const lang = line.trim().replace(/^```/, "").trim().toLowerCase();
+      if (!inCodeBlock && !inMermaidBlock) {
         flushList();
-        inCodeBlock = true;
-        html += `<pre class="panel" style="background-color:#0f172a; border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:.75rem; font-size:.8rem; overflow-x:auto;"><code>`;
+        if (lang === "mermaid") {
+          inMermaidBlock = true;
+          mermaidBuffer = [];
+        } else {
+          inCodeBlock = true;
+          html += `<pre class="panel" style="background-color:#0f172a; border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:.75rem; font-size:.8rem; overflow-x:auto;"><code>`;
+        }
+      } else if (inMermaidBlock) {
+        inMermaidBlock = false;
+        html += `<div class="mermaid" style="margin:1.5rem 0;">${mermaidBuffer.join("\n")}</div>`;
+        mermaidBuffer = [];
       } else {
         inCodeBlock = false;
         html += `</code></pre>`;
       }
+      continue;
+    }
+
+    if (inMermaidBlock) {
+      mermaidBuffer.push(line);
       continue;
     }
 
@@ -280,6 +297,9 @@ async function loadSinglePost() {
     const md = await res.text();
     const rendered = renderMarkdown(md);
     articleEl.innerHTML = rendered;
+    if (typeof mermaid !== "undefined") {
+      mermaid.run({ nodes: articleEl.querySelectorAll(".mermaid") });
+    }
   } catch (err) {
     articleEl.innerHTML = "<p>Unable to load this post.</p>";
   }
