@@ -27,8 +27,8 @@ resource "aws_iam_role_policy" "visitor_lambda_dynamodb_policy" {
 
 # API Gateway REST API
 resource "aws_api_gateway_rest_api" "visitor_api" {
-  name        = "visitor-tracking-api"
-  description = "API for visitor tracking"
+  name        = "brentjayingram-website-api"
+  description = "API for website functionality including visitor tracking and AI chat"
 }
 
 # API Gateway Resource
