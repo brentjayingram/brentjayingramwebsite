@@ -155,7 +155,7 @@ def get_ai_response(user_question: str) -> str:
     try:
         # Call Bedrock Claude model
         response = bedrock_runtime.invoke_model(
-            modelId='anthropic.claude-haiku-4-5-20251001-v1:0',  # Using Haiku for cost efficiency
+            modelId='us.anthropic.claude-haiku-4-5-20251001-v1:0',  # Using Haiku for cost efficiency
             body=json.dumps({
                 'anthropic_version': 'bedrock-2023-05-31',
                 'max_tokens': 500,
