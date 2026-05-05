@@ -9,9 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Package Lambda function
+        run: cd terraform && zip -j ai_chat.zip chat.py
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
