@@ -300,8 +300,8 @@ fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visi
 fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
   .then(res => res.json())
   .then(data => {
-    console.log('API Response:', data); // This will show you the structure
-    document.getElementById('visitor-count').textContent = `• ${data.count} visitors`; // Update this line
+    const el = document.getElementById('visitor-count');
+    if (el) el.textContent = `• ${data.count} visitors`;
   })
   .catch(() => {});
 
@@ -410,7 +410,7 @@ function initAIChat() {
       flex: 1;
       min-height: 0;
       padding: 15px;
-      overflow-y: auto;
+      overflow-y: scroll;
       overscroll-behavior: contain;
       display: flex;
       flex-direction: column;
@@ -516,10 +516,30 @@ function initAIChat() {
   const messages = document.getElementById('chat-messages');
   const loading = document.getElementById('chat-loading');
   
+  const CHAT_STORAGE_KEY = 'ai-chat-history';
+  const chatHistory = [];
+
+  // Restore saved conversation
+  const savedHistory = localStorage.getItem(CHAT_STORAGE_KEY);
+  if (savedHistory) {
+    messages.innerHTML = '';
+    JSON.parse(savedHistory).forEach(item => {
+      chatHistory.push(item);
+      renderMessage(item.text, item.sender);
+    });
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Restore open/closed state
+  if (localStorage.getItem('ai-chat-open') === 'true') {
+    container.style.display = 'flex';
+  }
+
   // Toggle chat
   toggle.addEventListener('click', () => {
     const isVisible = container.style.display !== 'none';
-    container.style.display = isVisible ? 'none' : 'block';
+    container.style.display = isVisible ? 'none' : 'flex';
+    localStorage.setItem('ai-chat-open', String(!isVisible));
     if (!isVisible) {
       input.focus();
     }
@@ -568,18 +588,26 @@ function initAIChat() {
     }
   }
   
-  // Add message to chat
-  function addMessage(text, sender) {
+  function renderMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `${sender}-message`;
-    
     if (sender === 'ai') {
-      messageDiv.innerHTML = `<strong>AI Assistant:</strong> ${text}`;
+      const formatted = text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+      messageDiv.innerHTML = `<strong>AI Assistant:</strong> ${formatted}`;
     } else {
       messageDiv.textContent = text;
     }
-    
     messages.appendChild(messageDiv);
+  }
+
+  function addMessage(text, sender) {
+    chatHistory.push({ text, sender });
+    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatHistory));
+    renderMessage(text, sender);
     messages.scrollTop = messages.scrollHeight;
   }
   
