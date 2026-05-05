@@ -1,6 +1,7 @@
 # AI Chat Lambda Function
 resource "aws_lambda_function" "ai_chat" {
   filename         = "ai_chat.zip"
+  source_code_hash = filebase64sha256("ai_chat.zip")
   function_name    = "resume-ai-chat"
   role            = aws_iam_role.ai_chat_role.arn
   handler         = "chat.handler"
@@ -145,19 +146,16 @@ resource "aws_api_gateway_integration_response" "ai_chat_options_integration_res
   }
 }
 
-# Remove the old deployment resource since we're updating the existing one
-# Update the existing deployment to include AI chat resources
 resource "aws_api_gateway_deployment" "visitor_api_deployment" {
   depends_on = [
     aws_api_gateway_integration.visitor_get_integration,
     aws_api_gateway_integration.visitor_post_integration,
     aws_api_gateway_integration.ai_chat_integration,
+    aws_api_gateway_integration_response.ai_chat_options_integration_response,
   ]
 
   rest_api_id = aws_api_gateway_rest_api.visitor_api.id
-  stage_name  = "dev"
 
-  # Force new deployment when resources change
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.visitor_resource.id,
@@ -165,13 +163,23 @@ resource "aws_api_gateway_deployment" "visitor_api_deployment" {
       aws_api_gateway_method.visitor_get.id,
       aws_api_gateway_method.visitor_post.id,
       aws_api_gateway_method.ai_chat_post.id,
+      aws_api_gateway_method.ai_chat_options.id,
       aws_api_gateway_integration.visitor_get_integration.id,
       aws_api_gateway_integration.visitor_post_integration.id,
       aws_api_gateway_integration.ai_chat_integration.id,
+      aws_api_gateway_integration.ai_chat_options_integration.id,
+      aws_api_gateway_method_response.ai_chat_options_response.id,
+      aws_api_gateway_integration_response.ai_chat_options_integration_response.id,
     ]))
   }
 
   lifecycle {
     create_before_destroy = true
   }
+}
+
+resource "aws_api_gateway_stage" "visitor_api_stage" {
+  deployment_id = aws_api_gateway_deployment.visitor_api_deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.visitor_api.id
+  stage_name    = "dev"
 }
