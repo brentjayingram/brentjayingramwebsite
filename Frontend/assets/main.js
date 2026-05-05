@@ -411,6 +411,7 @@ function initAIChat() {
       min-height: 0;
       padding: 15px;
       overflow-y: auto;
+      overscroll-behavior: contain;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -582,15 +583,15 @@ function initAIChat() {
     messages.scrollTop = messages.scrollHeight;
   }
   
-  // Prevent wheel events from scrolling the background page
-  messages.addEventListener('wheel', (e) => {
-    const atTop = messages.scrollTop === 0 && e.deltaY < 0;
-    const atBottom = messages.scrollTop + messages.clientHeight >= messages.scrollHeight && e.deltaY > 0;
-    if (!atTop && !atBottom) {
-      e.stopPropagation();
-    }
+  // Route all wheel events over the chat window into the messages scroller
+  container.addEventListener('wheel', (e) => {
     e.preventDefault();
-    messages.scrollTop += e.deltaY;
+    e.stopPropagation();
+    const lineHeight = 20;
+    let delta = e.deltaY;
+    if (e.deltaMode === 1) delta *= lineHeight;
+    else if (e.deltaMode === 2) delta *= messages.clientHeight;
+    messages.scrollTop += delta;
   }, { passive: false });
 
   // Event listeners for sending
