@@ -1,7 +1,10 @@
-name: Deploy Website
+name: Deploy Infrastructure
+
 on:
   push:
     branches: [main]
+    paths:
+      - 'terraform/**'
 
 jobs:
   deploy:
@@ -21,11 +24,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          
+
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{ secrets.TF_STATE_BUCKET }}"
         working-directory: terraform
-        
+
       - name: Terraform Plan
         run: terraform plan -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
@@ -37,6 +40,3 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
-        
-      - name: Sync website files
-        run: aws s3 sync Frontend/ s3://${{ secrets.BUCKET_NAME }} --delete
