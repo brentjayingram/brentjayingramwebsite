@@ -30,6 +30,10 @@ jobs:
         run: terraform plan -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
 
+      - name: Import existing API Gateway stage
+        run: terraform import -var="bucket_name=${{ secrets.BUCKET_NAME }}" aws_api_gateway_stage.visitor_api_stage c89m8g38k9/dev || true
+        working-directory: terraform
+
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="bucket_name=${{ secrets.BUCKET_NAME }}"
         working-directory: terraform
