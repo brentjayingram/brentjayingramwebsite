@@ -145,8 +145,9 @@ resource "aws_api_gateway_integration_response" "ai_chat_options_integration_res
   }
 }
 
-# Update API Gateway deployment to include new resources
-resource "aws_api_gateway_deployment" "visitor_api_deployment_v2" {
+# Remove the old deployment resource since we're updating the existing one
+# Update the existing deployment to include AI chat resources
+resource "aws_api_gateway_deployment" "visitor_api_deployment" {
   depends_on = [
     aws_api_gateway_integration.visitor_get_integration,
     aws_api_gateway_integration.visitor_post_integration,
@@ -156,7 +157,7 @@ resource "aws_api_gateway_deployment" "visitor_api_deployment_v2" {
   rest_api_id = aws_api_gateway_rest_api.visitor_api.id
   stage_name  = "dev"
 
-  # Force new deployment when AI chat is added
+  # Force new deployment when resources change
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.visitor_resource.id,
