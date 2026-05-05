@@ -94,16 +94,7 @@ resource "aws_lambda_permission" "visitor_api_post_permission" {
   source_arn    = "${aws_api_gateway_rest_api.visitor_api.execution_arn}/*/*"
 }
 
-# API Gateway Deployment
-resource "aws_api_gateway_deployment" "visitor_api_deployment" {
-  depends_on = [
-    aws_api_gateway_integration.visitor_get_integration,
-    aws_api_gateway_integration.visitor_post_integration,
-  ]
-
-  rest_api_id = aws_api_gateway_rest_api.visitor_api.id
-  stage_name  = "dev"
-}
+# API Gateway Deployment - moved to ai_chat.tf to include all resources
 
 # CORS for OPTIONS method
 resource "aws_api_gateway_method" "visitor_options" {
