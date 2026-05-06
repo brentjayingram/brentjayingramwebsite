@@ -58,6 +58,15 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
         Resource = [
           "arn:aws:bedrock:us-east-1:520919430166:knowledge-base/AJKLV1CWPO"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "bedrock:ApplyGuardrail"
+        ]
+        Resource = [
+          "arn:aws:bedrock:us-east-1:520919430166:guardrail/qmoqqv2y1kt5"
+        ]
       }
     ]
   })
