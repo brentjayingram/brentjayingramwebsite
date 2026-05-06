@@ -3,6 +3,18 @@
 // --- Existing blogPosts manifest ---
 const blogPosts = [
   {
+    title: "From Resume to RAG: How I Built a Knowledge Base for My AI Chatbot",
+    date: "2026-05-06",
+    slug: "ai-chatbot-rag-upgrade.md",
+    excerpt: "How I took the chatbot from using a static resume for context to a full Retrieval-Augmented Generation pipeline — exporting hundreds of OneNote AWS notes through Obsidian, cleaning the data, and wiring it all into an AWS Bedrock Knowledge Base."
+  },
+  {
+    title: "Building an AI Chatbot: The Deployment Battles No One Warns You About",
+    date: "2026-05-06",
+    slug: "ai-chatbot-blog-post.md",
+    excerpt: "An honest breakdown of every CORS error, Terraform state conflict, and CSS layout bug I hit deploying an AI chatbot on AWS Lambda and API Gateway — and how I fixed each one."
+  },
+  {
     title: "Building My Cloud Resume Challenge: A Complete AWS Infrastructure Journey",
     date: "2026-05-04",
     slug: "cloudresumechallenge.md",
@@ -168,6 +180,10 @@ function renderMarkdown(mdText) {
   }
 
   function inlineFormat(text) {
+    // images ![alt](url) — must run before links and italic to avoid * conflict
+    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%; border-radius:var(--radius-sm); margin:1rem 0;">');
+    // links [text](url)
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     // bold **text**
     text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     // italic *text*
