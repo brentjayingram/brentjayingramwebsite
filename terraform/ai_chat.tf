@@ -58,6 +58,15 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
         Resource = [
           "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:knowledge-base/KNOWLEDGE_BASE_ID"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "bedrock:ApplyGuardrail"
+        ]
+        Resource = [
+          "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:guardrail/GUARDRAIL_ID"
+        ]
       }
     ]
   })
