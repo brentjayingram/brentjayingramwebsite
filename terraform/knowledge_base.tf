@@ -41,9 +41,22 @@ resource "aws_bedrockagent_knowledge_base" "resume_kb" {
     }
   }
 
-  # S3 Vectors storage — not yet supported by the Terraform AWS provider.
-  # Managed manually in console. ignore_changes prevents Terraform from
-  # wiping the config on apply.
+  # S3 Vectors is not yet supported by the Terraform AWS provider.
+  # This block satisfies the required schema but is never applied —
+  # ignore_changes ensures Terraform leaves the real storage config alone.
+  storage_configuration {
+    type = "OPENSEARCH_SERVERLESS"
+    opensearch_serverless_configuration {
+      collection_arn    = "arn:aws:aoss:us-east-1:520919430166:collection/placeholder"
+      vector_index_name = "bedrock-knowledge-base-default-index"
+      field_mapping {
+        vector_field   = "bedrock-knowledge-base-default-vector"
+        text_field     = "AMAZON_BEDROCK_TEXT_CHUNK"
+        metadata_field = "AMAZON_BEDROCK_METADATA"
+      }
+    }
+  }
+
   lifecycle {
     ignore_changes = [storage_configuration]
   }
