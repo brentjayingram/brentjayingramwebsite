@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="88" height="88">
+  <rect x="0" y="0" width="88" height="88" rx="16" fill="#0d1117"/>
+  <!-- Left bracket -->
+  <path d="M26,18 L16,18 L16,70 L26,70" fill="none" stroke="#58a6ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right bracket -->
+  <path d="M62,18 L72,18 L72,70 L62,70" fill="none" stroke="#58a6ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- BI initials -->
+  <text x="44" y="57" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#58a6ff" letter-spacing="2">BI</text>
+</svg>
