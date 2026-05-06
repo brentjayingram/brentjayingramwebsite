@@ -49,6 +49,15 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
           "arn:aws:bedrock:us-east-1:*:inference-profile/us.anthropic.claude-haiku-4-5-20251001-v1:0",
           "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "bedrock-agent-runtime:Retrieve"
+        ]
+        Resource = [
+          "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:knowledge-base/KNOWLEDGE_BASE_ID"
+        ]
       }
     ]
   })
