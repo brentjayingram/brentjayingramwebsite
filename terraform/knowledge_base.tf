@@ -4,7 +4,9 @@
 #
 #   terraform import aws_s3_bucket.kb_documents brunnyawsnotes
 #   terraform import aws_bedrockagent_knowledge_base.resume_kb KNOWLEDGE_BASE_ID
-#   terraform import aws_bedrockagent_data_source.docs KNOWLEDGE_BASE_ID/DATA_SOURCE_ID
+#
+# Note: aws_bedrockagent_data_source cannot be imported due to a provider bug.
+# The data source (ID: DATA_SOURCE_ID) is managed manually in the AWS console.
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
@@ -17,16 +19,6 @@ resource "aws_s3_bucket" "kb_documents" {
 
 # ---------------------------------------------------------------------------
 # Bedrock Knowledge Base
-#
-# BEFORE running terraform plan, fill in the two placeholder values below:
-#
-# role_arn:
-#   AWS Console → Bedrock → Knowledge bases → brunny-aws → scroll to
-#   "Service role" → copy the ARN
-#
-# collection_arn:
-#   AWS Console → OpenSearch → Serverless → Collections → find the collection
-#   created by the quick-start wizard → copy the ARN
 # ---------------------------------------------------------------------------
 
 resource "aws_bedrockagent_knowledge_base" "resume_kb" {
@@ -38,6 +30,11 @@ resource "aws_bedrockagent_knowledge_base" "resume_kb" {
     type = "VECTOR"
     vector_knowledge_base_configuration {
       embedding_model_arn = "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1"
+      embedding_model_configuration {
+        bedrock_embedding_model_configuration {
+          embedding_data_type = "FLOAT32"
+        }
+      }
     }
   }
 
@@ -58,30 +55,18 @@ resource "aws_bedrockagent_knowledge_base" "resume_kb" {
   }
 
   lifecycle {
-    ignore_changes = [storage_configuration]
+    ignore_changes = [storage_configuration, knowledge_base_configuration]
   }
 }
 
 # ---------------------------------------------------------------------------
-# Data Source — points the knowledge base at your S3 bucket
-# ---------------------------------------------------------------------------
-
-resource "aws_bedrockagent_data_source" "docs" {
-  knowledge_base_id = aws_bedrockagent_knowledge_base.resume_kb.id
-  name              = "knowledge-base-quick-start-lnc07-data-source"
-
-  data_source_configuration {
-    type = "S3"
-    s3_configuration {
-      bucket_arn = aws_s3_bucket.kb_documents.arn
-    }
-  }
-}
-
-# ---------------------------------------------------------------------------
-# Output — used by chat.py to know which KB to query
+# Outputs — knowledge base ID and data source ID for reference in Lambda
 # ---------------------------------------------------------------------------
 
 output "knowledge_base_id" {
   value = aws_bedrockagent_knowledge_base.resume_kb.id
+}
+
+output "data_source_id" {
+  value = "DATA_SOURCE_ID"
 }
