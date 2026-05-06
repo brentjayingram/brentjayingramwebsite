@@ -30,26 +30,21 @@ resource "aws_s3_bucket" "kb_documents" {
 # ---------------------------------------------------------------------------
 
 resource "aws_bedrockagent_knowledge_base" "resume_kb" {
-  name     = "brunny-aws"
-  role_arn = "REPLACE_WITH_KB_IAM_ROLE_ARN"
+  name        = "brunny-aws"
+  description = "aws info from brunny"
+  role_arn    = "arn:aws:iam::AWS_ACCOUNT_ID:role/service-role/AmazonBedrockExecutionRoleForKnowledgeBaseBrunnyAws"
 
   knowledge_base_configuration {
     type = "VECTOR"
     vector_knowledge_base_configuration {
-      embedding_model_arn = "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v2:0"
+      embedding_model_arn = "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1"
     }
   }
 
   storage_configuration {
-    type = "OPENSEARCH_SERVERLESS"
-    opensearch_serverless_configuration {
-      collection_arn    = "REPLACE_WITH_OPENSEARCH_COLLECTION_ARN"
-      vector_index_name = "bedrock-knowledge-base-default-index"
-      field_mapping {
-        vector_field   = "bedrock-knowledge-base-default-vector"
-        text_field     = "AMAZON_BEDROCK_TEXT_CHUNK"
-        metadata_field = "AMAZON_BEDROCK_METADATA"
-      }
+    type = "S3_VECTORS"
+    s3_vectors_configuration {
+      index_arn = "arn:aws:s3vectors:us-east-1:AWS_ACCOUNT_ID:bucket/bedrock-knowledge-base-jsuehg/index/bedrock-knowledge-base-default-index"
     }
   }
 }
