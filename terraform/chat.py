@@ -94,8 +94,6 @@ Question: {user_question}"""
     try:
         response = bedrock_runtime.invoke_model(
             modelId='us.anthropic.claude-haiku-4-5-20251001-v1:0',
-            guardrailIdentifier='GUARDRAIL_ID',
-            guardrailVersion='1',
             body=json.dumps({
                 'anthropic_version': 'bedrock-2023-05-31',
                 'max_tokens': 500,
@@ -104,8 +102,6 @@ Question: {user_question}"""
             })
         )
         response_body = json.loads(response['body'].read())
-        if response_body.get('stop_reason') == 'guardrail_intervened':
-            return "I can only answer questions about Brent's professional background. Feel free to ask about his experience, skills, or projects."
         return response_body['content'][0]['text']
 
     except Exception as e:
