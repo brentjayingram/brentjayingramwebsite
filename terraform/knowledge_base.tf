@@ -41,11 +41,11 @@ resource "aws_bedrockagent_knowledge_base" "resume_kb" {
     }
   }
 
-  storage_configuration {
-    type = "S3_VECTORS"
-    s3_vectors_configuration {
-      index_arn = "arn:aws:s3vectors:us-east-1:520919430166:bucket/bedrock-knowledge-base-jsuehg/index/bedrock-knowledge-base-default-index"
-    }
+  # S3 Vectors storage — not yet supported by the Terraform AWS provider.
+  # Managed manually in console. ignore_changes prevents Terraform from
+  # wiping the config on apply.
+  lifecycle {
+    ignore_changes = [storage_configuration]
   }
 }
 
