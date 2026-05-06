@@ -53,7 +53,7 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
       {
         Effect = "Allow"
         Action = [
-          "bedrock-agent-runtime:Retrieve"
+          "bedrock:Retrieve"
         ]
         Resource = [
           "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:knowledge-base/KNOWLEDGE_BASE_ID"
