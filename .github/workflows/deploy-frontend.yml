@@ -23,4 +23,4 @@ jobs:
         run: sed -i 's|__API_BASE_URL__|${{ secrets.API_BASE_URL }}|g' Frontend/assets/main.js
 
       - name: Sync website files to S3
-        run: aws s3 sync Frontend/ s3://${{ secrets.BUCKET_NAME }} --delete
+        run: aws s3 sync Frontend/ s3://${{ secrets.BUCKET_NAME }} --delete --exclude 'blogimages/*'
