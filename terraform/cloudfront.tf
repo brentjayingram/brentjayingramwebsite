@@ -87,10 +87,10 @@ resource "aws_cloudfront_distribution" "website" {
 
   price_class = "PriceClass_200"
 
+
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      restriction_type = "none"
     }
   }
 
