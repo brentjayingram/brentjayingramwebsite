@@ -279,12 +279,12 @@ The JavaScript code handles both tracking visits and displaying the count:
 
 ```javascript
 // Track visitor on page load
-fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
+fetch('https://YOUR_API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
     method: 'POST'
 }).catch(() => {}); // Silent fail
 
 // Fetch and display visitor count
-fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
+fetch('https://YOUR_API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
   .then(res => res.json())
   .then(data => {
     document.getElementById('visitor-count').textContent = `• ${data.count} visitors`;
