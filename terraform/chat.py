@@ -1,4 +1,5 @@
 import json
+import os
 import boto3
 import logging
 from typing import Dict, Any
@@ -9,7 +10,7 @@ logger.setLevel(logging.INFO)
 bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-east-1')
 bedrock_agent_runtime = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
-KNOWLEDGE_BASE_ID = 'KNOWLEDGE_BASE_ID'
+KNOWLEDGE_BASE_ID = os.environ['KNOWLEDGE_BASE_ID']
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     headers = {

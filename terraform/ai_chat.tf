@@ -8,6 +8,12 @@ resource "aws_lambda_function" "ai_chat" {
   runtime         = "python3.11"
   timeout         = 30
 
+  environment {
+    variables = {
+      KNOWLEDGE_BASE_ID = var.knowledge_base_id
+    }
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.ai_chat_basic_attach,
     aws_iam_role_policy_attachment.ai_chat_bedrock_attach,
@@ -56,7 +62,7 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
           "bedrock:Retrieve"
         ]
         Resource = [
-          "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:knowledge-base/KNOWLEDGE_BASE_ID"
+          "arn:aws:bedrock:us-east-1:${var.aws_account_id}:knowledge-base/${var.knowledge_base_id}"
         ]
       },
       {
@@ -65,7 +71,7 @@ resource "aws_iam_policy" "ai_chat_bedrock_policy" {
           "bedrock:ApplyGuardrail"
         ]
         Resource = [
-          "arn:aws:bedrock:us-east-1:AWS_ACCOUNT_ID:guardrail/GUARDRAIL_ID"
+          "arn:aws:bedrock:us-east-1:${var.aws_account_id}:guardrail/${var.guardrail_id}"
         ]
       }
     ]

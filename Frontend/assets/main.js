@@ -308,12 +308,12 @@ document.addEventListener("DOMContentLoaded", () => {
   initAIChat(); // Initialize AI chat widget
 });
 // Track visitor on page load
-fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor', {
+fetch('__API_BASE_URL__/track-visitor', {
     method: 'POST'
 }).catch(() => {}); // Silent fail
 
 // Fetch and display visitor count
-fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/track-visitor')
+fetch('__API_BASE_URL__/track-visitor')
   .then(res => res.json())
   .then(data => {
     const el = document.getElementById('visitor-count');
@@ -579,7 +579,7 @@ function initAIChat() {
     
     try {
       // Call AI API
-      const response = await fetch('https://API_GATEWAY_ID.execute-api.us-east-1.amazonaws.com/dev/ai-chat', {
+      const response = await fetch('__API_BASE_URL__/ai-chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
